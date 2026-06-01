@@ -2,11 +2,11 @@
 
 ## Descrição do Problema e Usuário-Alvo
 
-Estudantes da educação básica (1º ao 9º ano) têm dificuldade em desenvolver a habilidade de escrita por falta de feedback rápido e detalhado sobre suas redações. Professores, sobrecarregados, não conseguem corrigir com a frequência e profundidade necessárias.
+Estudantes da educação básica e média têm dificuldade em desenvolver a habilidade de escrita por falta de feedback rápido e detalhado sobre suas redações. Professores, sobrecarregados, não conseguem corrigir com a frequência e profundidade necessárias.
 
 O sistema proposto é um **corretor de redações assistido por IA**, onde o aluno escreve ou cola uma redação e recebe instantaneamente uma nota simbólica e feedback detalhado apontando erros e sugestões de melhora — como se fosse a correção de um professor.
 
-**Usuário-alvo:** Alunos da educação básica que desejam praticar e melhorar sua escrita de forma autônoma.
+**Usuário-alvo:** Alunos da educação básica (1º ao 9º ano) e ensino médio que desejam praticar e melhorar sua escrita de forma autônoma.
 
 ---
 
@@ -19,6 +19,7 @@ O sistema proposto é um **corretor de redações assistido por IA**, onde o alu
 | name | string | Nome do usuário |
 | email | string | E-mail (único) |
 | password_hash | string | Senha criptografada |
+| grade | string | Ano/série do aluno (ex: "6º ano", "1º EM") |
 | created_at | datetime | Data de criação da conta |
 
 ### Essay
@@ -28,6 +29,7 @@ O sistema proposto é um **corretor de redações assistido por IA**, onde o alu
 | user_id | int (FK) | Referência ao usuário |
 | title | string | Título da redação |
 | content | text | Conteúdo da redação |
+| text_type | string | Tipo de texto (ex: "argumentativa", "narrativo", "carta") |
 | submitted_at | datetime | Data de envio |
 
 ### Feedback
@@ -71,7 +73,17 @@ Backend salva o Feedback no banco e retorna para o frontend
 Frontend exibe nota, critérios e sugestões lado a lado com o texto
 ```
 
-**Critérios avaliados pela IA:**
+**Tipos de texto suportados e pré-seleção por série:**
+
+| Tipo de texto | Séries | Critérios principais |
+|---|---|---|
+| Redação | Ensino Médio | Tese, argumentos, coesão, conclusão |
+| Texto | 8º e 9º ano | Estrutura narrativa, coesão, coerência |
+| Carta | 1º ao 7º ano | Ortografia, vocabulário, estrutura simples |
+
+O tipo de texto é **pré-selecionado automaticamente** com base no ano/série informado no cadastro, mas o aluno pode alterar manualmente antes de enviar.
+
+**Critérios avaliados pela IA** (adaptados por tipo de texto):
 - Coesão (uso de conectivos e progressão do texto)
 - Coerência (lógica e sentido geral)
 - Gramática e ortografia

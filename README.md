@@ -4,7 +4,15 @@ Sistema web para correção de redações de alunos da educação básica, com f
 
 ## Sobre o Projeto
 
-O aluno escreve ou cola uma redação e recebe instantaneamente uma nota simbólica (A/B/C/D) e feedback detalhado por critério — coesão, coerência, gramática, vocabulário e estrutura textual.
+O aluno escreve ou cola um texto e recebe instantaneamente uma nota simbólica (A/B/C/D) e feedback detalhado por critério — coesão, coerência, gramática, vocabulário e estrutura textual.
+
+O tipo de texto é pré-selecionado com base no ano/série informado no cadastro, mas pode ser alterado manualmente:
+
+| Tipo | Público | Foco da avaliação |
+|---|---|---|
+| Redação | Ensino Médio | Tese, argumentos, coesão, conclusão |
+| Texto | 8º e 9º ano | Estrutura narrativa, coesão, coerência |
+| Carta | 1º ao 7º ano | Ortografia, vocabulário, estrutura simples |
 
 ## Stack
 
