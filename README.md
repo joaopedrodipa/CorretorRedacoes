@@ -20,42 +20,6 @@ O aluno escreve ou cola uma redação e recebe instantaneamente uma nota simból
 - Python 3.11+
 - Conta no [Google AI Studio](https://aistudio.google.com) para obter a API key do Gemini
 
-## Instalação e Execução
-
-### Backend
-
-```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate        # Windows
-# source venv/bin/activate   # Linux/Mac
-pip install -r requirements.txt
-```
-
-Crie um arquivo `.env` dentro da pasta `backend/` com:
-
-```
-GEMINI_API_KEY=sua_chave_aqui
-SECRET_KEY=uma_chave_secreta_qualquer
-```
-
-Inicie o servidor:
-
-```bash
-uvicorn main:app --reload
-```
-
-O backend estará disponível em `http://localhost:8000`.
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-O frontend estará disponível em `http://localhost:5173`.
 
 ## Estrutura do Repositório
 
