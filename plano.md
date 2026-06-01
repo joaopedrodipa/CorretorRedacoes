@@ -112,8 +112,8 @@ O sistema é composto por uma **única tela principal** com layout fixo e um **m
 ### Sprint 1 — Proposta e Protótipo Visual (26/05 → 01/06)
 | Tarefa | Responsável |
 |---|---|
-| Elaboração do plano.md | Manu, João Cavani e De Paula |
-| Protótipo visual (Figma) — tela principal (navbar + sidebar + corretor) | Manu |
+| Elaboração do plano.md | João Cavani e De Paula |
+| Protótipo visual (Figma) — tela principal (navbar + sidebar + corretor) | De Paula |
 | Protótipo visual (Figma) — modal de login/cadastro e estado sem login | João Cavani |
 
 ### Sprint 2 — Backend (02/06 → 15/06)
@@ -121,8 +121,8 @@ O sistema é composto por uma **única tela principal** com layout fixo e um **m
 |---|---|
 | Setup do projeto FastAPI, estrutura de pastas | De Paula |
 | Modelos SQLModel e banco de dados SQLite | De Paula |
-| Autenticação JWT (cadastro e login) | Manu |
-| Rotas de essays (criar, listar, buscar por id) | Manu |
+| Autenticação JWT (cadastro e login) | De Paula |
+| Rotas de essays (criar, listar, buscar por id) | João Cavani |
 | Integração com API do Gemini e geração de feedback | João Cavani |
 | Rota de feedback (retornar avaliação da redação) | João Cavani |
 
@@ -130,19 +130,19 @@ O sistema é composto por uma **única tela principal** com layout fixo e um **m
 | Tarefa | Responsável |
 |---|---|
 | Setup do projeto React + Tailwind, estrutura de pastas | De Paula |
-| Navbar, modal de login/cadastro e contexto de autenticação JWT | Manu |
-| Serviço de autenticação (armazenar e enviar token) | Manu |
+| Navbar, modal de login/cadastro e contexto de autenticação JWT | De Paula |
+| Serviço de autenticação (armazenar e enviar token) | De Paula |
 | Área principal: textarea + painel de feedback | João Cavani |
-| Sidebar de histórico de redações | De Paula |
+| Sidebar de histórico de redações | João Cavani |
 | Integração completa com o backend | João Cavani |
 
 ### Sprint 4 — Integração, Testes e Entrega (30/06 → 13/07)
 | Tarefa | Responsável |
 |---|---|
-| Testes de fluxo completo (login → envio → feedback) | Manu, João Cavani e De Paula |
-| Correção de bugs e ajustes de UX | Manu |
+| Testes de fluxo completo (login → envio → feedback) | João Cavani e De Paula |
+| Correção de bugs e ajustes de UX | De Paula |
 | README.md com instruções de instalação e execução | De Paula |
-| Preparação para apresentação final | Manu, João Cavani e De Paula |
+| Preparação para apresentação final | João Cavani e De Paula |
 
 ---
 

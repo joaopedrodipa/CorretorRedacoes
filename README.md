@@ -46,4 +46,3 @@ O aluno escreve ou cola uma redação e recebe instantaneamente uma nota simból
 
 - João Pedro de Paula
 - João Pedro Cavani
-- Manuela 
