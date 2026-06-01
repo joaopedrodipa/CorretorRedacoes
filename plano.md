@@ -2,7 +2,7 @@
 
 ## Descrição do Problema e Usuário-Alvo
 
-Estudantes da educação básica (1º ao 9º ano) têm dificuldade em desenvolver a habilidade de escrita por falta de feedback rápido e detalhado sobre suas redações. Professores, sobrecarregados, não conseguem corrigir com a frequência e profundidade necessárias.
+Estudantes da educação básica têm dificuldade em desenvolver a habilidade de escrita por falta de feedback rápido e detalhado sobre suas redações. Professores, sobrecarregados, não conseguem corrigir com a frequência e profundidade necessárias.
 
 O sistema proposto é um **corretor de redações assistido por IA**, onde o aluno escreve ou cola uma redação e recebe instantaneamente uma nota simbólica e feedback detalhado apontando erros e sugestões de melhora — como se fosse a correção de um professor.
 
