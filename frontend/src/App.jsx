@@ -24,9 +24,6 @@ export default function App() {
     setSelectedEssay(essay)
   }
 
-  async function handleSubmit(title, content, textType) {
-    await submitEssay(title, content, textType)
-  }
 
   return (
     <div className="flex flex-col h-screen">
@@ -54,7 +51,7 @@ export default function App() {
             <>
               <div className="flex-1 bg-white rounded-xl border border-gray-200 flex flex-col" style={{ padding: '13px' }}>
                 <h2 className="text-sm font-semibold text-gray-500 mb-3">Nova correção</h2>
-                <EssayEditor userGrade={user.grade} essay={selectedEssay} onSubmit={handleSubmit} />
+                <EssayEditor userGrade={user.grade} essay={selectedEssay} onSubmit={submitEssay} />
               </div>
 
               <div className="flex-1 bg-white rounded-xl border border-gray-200 overflow-y-auto" style={{ padding: '13px' }}>

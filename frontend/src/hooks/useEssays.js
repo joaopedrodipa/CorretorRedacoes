@@ -83,6 +83,7 @@ export function useEssays() {
         const newEssay = {
           id: Date.now(),
           title: title || 'Sem título',
+          content: content,
           text_type: textType,
           submitted_at: new Date().toISOString().slice(0, 10),
           feedback: {
