@@ -128,7 +128,7 @@ O sistema é composto por uma **única tela principal** com layout fixo e um **m
 | Protótipo visual (Figma) — tela principal (navbar + sidebar + corretor) | De Paula |
 | Protótipo visual (Figma) — modal de login/cadastro e estado sem login | João Cavani |
 
-### Sprint 2 — Frontend (02/06 → 15/06)
+### Sprint 2 — Backend (02/06 → 15/06)
 | Tarefa | Responsável |
 |---|---|
 | Setup do projeto FastAPI, estrutura de pastas | De Paula |
@@ -138,7 +138,7 @@ O sistema é composto por uma **única tela principal** com layout fixo e um **m
 | Integração com API do Gemini e geração de feedback | João Cavani |
 | Rota de feedback (retornar avaliação da redação) | João Cavani |
 
-### Sprint 3 — Backend (16/06 → 29/06)
+### Sprint 3 — Frontend (16/06 → 29/06)
 | Tarefa | Responsável |
 |---|---|
 | Setup do projeto React + Tailwind, estrutura de pastas | De Paula |
