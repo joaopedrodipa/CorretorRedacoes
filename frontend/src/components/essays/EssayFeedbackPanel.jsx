@@ -1,6 +1,6 @@
-// Painel de feedback gerado pela IA
+// Painel de feedback gerado pela IA para redações
 // Props: feedback (objeto com nota, critérios e pontos de melhora), ou null se vazio
-export default function FeedbackPanel({ feedback }) {
+export default function EssayFeedbackPanel({ feedback }) {
   if (!feedback) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-gray-400 text-sm gap-2">
@@ -29,7 +29,6 @@ export default function FeedbackPanel({ feedback }) {
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
-      {/* Nota geral */}
       <div className={`flex items-center gap-3 ${grade.bg} rounded-xl px-4 py-3`}>
         <span className={`text-4xl font-bold ${grade.text}`}>
           {feedback.overall_grade}
@@ -40,7 +39,6 @@ export default function FeedbackPanel({ feedback }) {
         </div>
       </div>
 
-      {/* Critérios com barra de progresso */}
       <div className="flex flex-col gap-2">
         <p className="text-xs font-semibold text-gray-400 uppercase">Critérios</p>
         {criteria.map((c) => (
@@ -51,15 +49,14 @@ export default function FeedbackPanel({ feedback }) {
             </div>
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className="h-2 bg-indigo-500 rounded-full transition-all"
-                style={{ width: `${c.value * 10}%` }}
+                className="h-2 rounded-full transition-all"
+                style={{ width: `${c.value * 10}%`, backgroundColor: 'var(--color-primary)' }}
               />
             </div>
           </div>
         ))}
       </div>
 
-      {/* Pontos de melhora */}
       {feedback.improvement_points?.length > 0 && (
         <div>
           <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
@@ -68,7 +65,7 @@ export default function FeedbackPanel({ feedback }) {
           <ul className="flex flex-col gap-2">
             {feedback.improvement_points.map((point, i) => (
               <li key={i} className="flex gap-2 text-sm text-gray-700">
-                <span className="text-indigo-400 mt-0.5">•</span>
+                <span className="mt-0.5" style={{ color: 'var(--color-primary)' }}>•</span>
                 <span>{point}</span>
               </li>
             ))}
@@ -76,7 +73,6 @@ export default function FeedbackPanel({ feedback }) {
         </div>
       )}
 
-      {/* Resumo geral */}
       {feedback.summary && (
         <div className="bg-gray-50 rounded-xl px-4 py-3">
           <p className="text-xs font-semibold text-gray-400 uppercase mb-1">Resumo</p>

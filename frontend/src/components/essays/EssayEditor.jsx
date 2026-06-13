@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Button from './Button'
+import Button from '../shared/Button'
 
 function getDefaultTextType(grade) {
   if (!grade) return 'carta'
@@ -52,7 +52,11 @@ export default function EssayEditor({ userGrade, essay, onSubmit }) {
     }
 
     setLoading(true)
-    await onSubmit(title, content, textType)
+    try {
+      await onSubmit(title, content, textType)
+    } catch (err) {
+      setError(err.message || 'Erro ao corrigir. Tente novamente.')
+    }
     setLoading(false)
   }
 

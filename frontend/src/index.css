@@ -10,3 +10,25 @@ body {
   font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
   background-color: #f3f4f6;
 }
+
+/* Tema redações — roxo/índigo */
+:root, [data-theme="essays"] {
+  --color-primary: #4f46e5;
+  --color-primary-dark: #312e81;
+  --color-primary-mid: #4338ca;
+  --color-primary-light: #e0e7ff;
+  --color-primary-bg: #eef2ff;
+}
+
+/* Tema matemática — vermelho */
+[data-theme="math"] {
+  --color-primary: #dc2626;
+  --color-primary-dark: #991b1b;
+  --color-primary-mid: #b91c1c;
+  --color-primary-light: #fee2e2;
+  --color-primary-bg: #fef2f2;
+}
+
+.btn-primary-hover:hover {
+  background-color: var(--color-primary-mid) !important;
+}

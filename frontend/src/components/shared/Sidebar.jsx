@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 // Barra lateral com histórico de redações do usuário logado
 // Props: essays, selectedEssay, onSelect, onDelete(id), onNewEssay
-export default function Sidebar({ essays, selectedEssay, onSelect, onDelete, onNewEssay }) {
+export default function Sidebar({ essays, selectedEssay, onSelect, onDelete, onNewEssay, emptyMessage = 'Nenhuma correção ainda.' }) {
   // Redação aguardando confirmação de exclusão
   const [toDelete, setToDelete] = useState(null)
 
@@ -25,7 +25,8 @@ export default function Sidebar({ essays, selectedEssay, onSelect, onDelete, onN
         <div style={{ padding: '12px 16px 8px 16px' }}>
           <button
             onClick={onNewEssay}
-            className="w-full bg-indigo-600 text-white text-sm py-2 rounded-full hover:bg-indigo-700 transition-colors"
+            className="w-full text-white text-sm py-2 rounded-full btn-primary-hover transition-colors"
+            style={{ backgroundColor: 'var(--color-primary)' }}
           >
             + Nova Correção
           </button>
@@ -36,24 +37,28 @@ export default function Sidebar({ essays, selectedEssay, onSelect, onDelete, onN
         </p>
 
         {essays.length === 0 ? (
-          <p className="text-xs text-gray-400 px-4">Nenhuma redação ainda.</p>
+          <p className="text-xs text-gray-400 px-4">{emptyMessage}</p>
         ) : (
           <ul className="flex-1 overflow-y-auto">
             {essays.map((essay) => (
               <li key={essay.id} className="relative group">
                 <button
                   onClick={() => onSelect(essay)}
-                  className={`w-full text-left px-4 py-3 pr-8 border-b border-gray-100 hover:bg-gray-50 transition-colors ${
-                    selectedEssay?.id === essay.id ? 'bg-indigo-50' : ''
-                  }`}
+                  className="w-full text-left border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                  style={{
+                    paddingLeft: '16px', paddingRight: '32px', paddingTop: '12px', paddingBottom: '12px',
+                    ...(selectedEssay?.id === essay.id ? { backgroundColor: 'var(--color-primary-bg)' } : {})
+                  }}
                 >
                   <p className="text-sm text-gray-800 truncate">{essay.title}</p>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                      gradeColor[essay.feedback?.overall_grade] ?? 'bg-gray-100 text-gray-500'
-                    }`}>
-                      {essay.feedback?.overall_grade ?? '—'}
-                    </span>
+                    {essay.feedback?.overall_grade && (
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                        gradeColor[essay.feedback.overall_grade] ?? 'bg-gray-100 text-gray-500'
+                      }`}>
+                        {essay.feedback.overall_grade}
+                      </span>
+                    )}
                     <span className="text-xs text-gray-400">{essay.submitted_at}</span>
                   </div>
                 </button>

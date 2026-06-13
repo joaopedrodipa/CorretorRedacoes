@@ -1,79 +1,67 @@
 import { useState } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { useEssays } from './hooks/useEssays'
-import Navbar from './components/Navbar'
-import Button from './components/Button'
-import Sidebar from './components/Sidebar'
-import EssayEditor from './components/EssayEditor'
-import FeedbackPanel from './components/FeedbackPanel'
-import LoginModal from './components/LoginModal'
-import AccountModal from './components/AccountModal'
+import { useMath } from './hooks/useMath'
+import Navbar from './components/shared/Navbar'
+import LoginModal from './components/shared/LoginModal'
+import AccountModal from './components/shared/AccountModal'
+import HomePage from './pages/HomePage'
+import EssaysPage from './pages/EssaysPage'
+import MathPage from './pages/MathPage'
 import './index.css'
 
 export default function App() {
-  const { user, login, register, logout, updateUser, deleteAccount } = useAuth()
-  const { essays, selectedEssay, setSelectedEssay, submitEssay, deleteEssay } = useEssays()
+  const { user, login, register, logout, updateUser, changePassword, deleteAccount } = useAuth()
+  const { essays, selectedEssay, setSelectedEssay, submitEssay, deleteEssay } = useEssays(user)
+  const { exercises, selectedExercise, mathFeedback, selectExercise, setSelectedExercise, submitExercise, submitCalc, deleteExercise } = useMath(user)
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [loginInitialTab, setLoginInitialTab] = useState('login')
   const [isAccountOpen, setIsAccountOpen] = useState(false)
+  const [page, setPage] = useState('essays')
 
   function openLogin() { setLoginInitialTab('login'); setIsLoginOpen(true) }
   function openRegister() { setLoginInitialTab('register'); setIsLoginOpen(true) }
 
-  function handleSelectEssay(essay) {
-    setSelectedEssay(essay)
-  }
-
-
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen" data-theme={page === 'math' ? 'math' : 'essays'}>
       <Navbar
         user={user}
         onLoginClick={openLogin}
         onRegisterClick={openRegister}
         onLogout={logout}
         onAccountClick={() => setIsAccountOpen(true)}
+        page={page}
+        onPageChange={setPage}
       />
 
       <div className="flex flex-1 overflow-hidden">
-        {user && (
-          <Sidebar
-            essays={essays}
-            selectedEssay={selectedEssay}
-            onSelect={handleSelectEssay}
-            onDelete={deleteEssay}
-            onNewEssay={() => setSelectedEssay(null)}
-          />
-        )}
-
-        <main className="flex flex-1 gap-4 p-4 overflow-hidden">
-          {user ? (
-            <>
-              <div className="flex-1 bg-white rounded-xl border border-gray-200 flex flex-col" style={{ padding: '13px' }}>
-                <h2 className="text-sm font-semibold text-gray-500 mb-3">Nova correção</h2>
-                <EssayEditor userGrade={user.grade} essay={selectedEssay} onSubmit={submitEssay} />
-              </div>
-
-              <div className="flex-1 bg-white rounded-xl border border-gray-200 overflow-y-auto" style={{ padding: '13px' }}>
-                <h2 className="text-sm font-semibold text-gray-500 mb-3">Feedback</h2>
-                <FeedbackPanel feedback={selectedEssay?.feedback ?? null} />
-              </div>
-            </>
+        {user ? (
+          page === 'math' ? (
+            <MathPage
+              exercises={exercises}
+              selectedExercise={selectedExercise}
+              mathFeedback={mathFeedback}
+              selectExercise={selectExercise}
+              setSelectedExercise={setSelectedExercise}
+              submitExercise={submitExercise}
+              submitCalc={submitCalc}
+              deleteExercise={deleteExercise}
+            />
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center text-center gap-4">
-              <span className="text-6xl">✏️</span>
-              <h1 className="text-2xl font-bold text-gray-700">Corrija sua redação com IA</h1>
-              <p className="text-gray-400 max-w-sm">
-                Faça login para enviar sua redação e receber feedback instantâneo
-                com nota e sugestões de melhora.
-              </p>
-              <div className="flex gap-3">
-                <Button onClick={openLogin}>Entrar</Button>
-                <Button onClick={openRegister} variant="ghost" className="border border-indigo-600 text-indigo-600 hover:bg-indigo-50">Cadastrar</Button>
-              </div>
-            </div>
-          )}
-        </main>
+            <HomePage
+              user={user}
+              essays={essays}
+              selectedEssay={selectedEssay}
+              setSelectedEssay={setSelectedEssay}
+              submitEssay={submitEssay}
+              deleteEssay={deleteEssay}
+            />
+          )
+        ) : (
+          <main className="flex flex-1">
+            <EssaysPage onLogin={openLogin} onRegister={openRegister} />
+          </main>
+        )}
       </div>
 
       <LoginModal
@@ -90,6 +78,7 @@ export default function App() {
           onClose={() => setIsAccountOpen(false)}
           user={user}
           onUpdate={updateUser}
+          onChangePassword={changePassword}
           onDelete={deleteAccount}
         />
       )}

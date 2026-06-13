@@ -30,15 +30,16 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
 
   if (!isOpen) return null
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault()
     setError('')
-    const ok = onLogin(loginEmail, loginPassword)
-    if (!ok) { setError('Preencha todos os campos.'); return }
+    if (!loginEmail || !loginPassword) { setError('Preencha todos os campos.'); return }
+    const ok = await onLogin(loginEmail, loginPassword)
+    if (!ok) { setError('E-mail ou senha incorretos.'); return }
     onClose()
   }
 
-  function handleRegister(e) {
+  async function handleRegister(e) {
     e.preventDefault()
     setError('')
     if (!regName || !regEmail || !regPassword || !regPasswordConfirm || !regGrade) {
@@ -49,8 +50,8 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
       setError('As senhas não coincidem.')
       return
     }
-    const ok = onRegister(regName, regEmail, regPassword, regGrade)
-    if (!ok) { setError('Erro ao criar conta.'); return }
+    const ok = await onRegister(regName, regEmail, regPassword, regGrade)
+    if (!ok) { setError('E-mail já cadastrado ou erro ao criar conta.'); return }
     onClose()
   }
 
@@ -70,7 +71,6 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
         style={{ padding: '16px 24px 20px 24px' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Botão fechar no canto superior direito */}
         <button
           onClick={onClose}
           className="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl leading-none"
@@ -78,14 +78,11 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
           ✕
         </button>
 
-        {/* Logo e nome do app */}
         <Logo />
-        {/* Título da aba atual */}
         <p className="text-base font-semibold text-gray-700 mb-4">
           {tab === 'login' ? 'Acesse sua conta' : 'Criar conta'}
         </p>
 
-        {/* Abas */}
         <div className="flex border-b border-gray-200 mb-4">
           <button
             onClick={() => switchTab('login')}
@@ -109,7 +106,6 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
           </button>
         </div>
 
-        {/* Mensagem de erro */}
         {error && (
           <p className="text-red-500 text-sm mb-4 bg-red-50 px-3 py-2 rounded-lg">
             {error}
@@ -132,7 +128,6 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
               onChange={(e) => setLoginPassword(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"
             />
-            {/* Separador antes do botão */}
             <hr className="border-gray-200" />
             <Button type="submit" className="w-full">Entrar</Button>
           </form>
@@ -166,7 +161,6 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
               onChange={(e) => setRegPasswordConfirm(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"
             />
-            {/* Série define o tipo de texto padrão no corretor */}
             <select
               value={regGrade}
               onChange={(e) => setRegGrade(e.target.value)}
@@ -177,7 +171,6 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initi
                 <option key={g} value={g}>{g}</option>
               ))}
             </select>
-            {/* Separador antes do botão */}
             <hr className="border-gray-200" />
             <Button type="submit" className="w-full">Cadastrar</Button>
           </form>

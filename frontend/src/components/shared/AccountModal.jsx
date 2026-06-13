@@ -10,45 +10,49 @@ const GRADES = [
 
 // Modal de gerenciamento da conta do usuário
 // Props: isOpen, onClose, user, onUpdate(name, grade), onDelete()
-export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete }) {
+export default function AccountModal({ isOpen, onClose, user, onUpdate, onChangePassword, onDelete }) {
   const [name, setName] = useState(user?.name ?? '')
   const [grade, setGrade] = useState(user?.grade ?? '')
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
-  // Estado da janela de alterar senha
   const [showPassword, setShowPassword] = useState(false)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [passwordSuccess, setPasswordSuccess] = useState('')
 
-  // Estado da janela de excluir conta
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState('')
   const [deleteError, setDeleteError] = useState('')
 
   if (!isOpen) return null
 
-  function handleUpdate(e) {
+  async function handleUpdate(e) {
     e.preventDefault()
     setError('')
     setSuccess('')
-    const ok = onUpdate(name, null, grade)
-    if (!ok) { setError('Preencha nome e série.'); return }
+    if (!name || !grade) { setError('Preencha nome e série.'); return }
+    const ok = await onUpdate(name, grade)
+    if (!ok) { setError('Erro ao salvar. Tente novamente.'); return }
     setSuccess('Dados atualizados com sucesso!')
   }
 
-  function handlePasswordChange(e) {
+  async function handlePasswordChange(e) {
     e.preventDefault()
     setPasswordError('')
     if (!currentPassword || !newPassword) {
       setPasswordError('Preencha os dois campos.')
       return
     }
-    setPasswordSuccess('Senha alterada com sucesso!')
-    setCurrentPassword('')
-    setNewPassword('')
+    const result = await onChangePassword(currentPassword, newPassword)
+    if (result === true) {
+      setPasswordSuccess('Senha alterada com sucesso!')
+      setCurrentPassword('')
+      setNewPassword('')
+    } else {
+      setPasswordError(result || 'Erro ao alterar senha.')
+    }
   }
 
   function handleDelete(e) {
@@ -61,12 +65,8 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
     onClose()
   }
 
-  // SVG do caderno reutilizado nos modais
-
-
   return (
     <>
-      {/* Modal principal da conta */}
       <div
         className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
         onClick={onClose}
@@ -84,7 +84,6 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
           {error && <p className="text-red-500 text-sm mb-3 bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
           {success && <p className="text-green-600 text-sm mb-3 bg-green-50 px-3 py-2 rounded-lg">{success}</p>}
 
-          {/* Campos: nome, série, email */}
           <form onSubmit={handleUpdate} className="flex flex-col gap-3">
             <input
               type="text"
@@ -100,7 +99,6 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
             >
               {GRADES.map((g) => <option key={g} value={g}>{g}</option>)}
             </select>
-            {/* E-mail bloqueado — não pode ser alterado */}
             <input
               type="email"
               value={user?.email ?? ''}
@@ -111,7 +109,6 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
             <Button type="submit" className="w-full">Salvar alterações</Button>
           </form>
 
-          {/* Botão alterar senha */}
           <div style={{ marginTop: '8px' }}>
             <Button
               variant="warning"
@@ -122,7 +119,6 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
             </Button>
           </div>
 
-          {/* Botão excluir conta */}
           <div style={{ marginTop: '8px' }}>
             <Button
               variant="danger"
@@ -135,7 +131,6 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
         </div>
       </div>
 
-      {/* Janela de alterar senha */}
       {showPassword && (
         <div
           className="fixed inset-0 flex items-center justify-center z-60"
@@ -175,7 +170,6 @@ export default function AccountModal({ isOpen, onClose, user, onUpdate, onDelete
         </div>
       )}
 
-      {/* Janela de confirmação de exclusão */}
       {showDeleteConfirm && (
         <div
           className="fixed inset-0 flex items-center justify-center z-60"
