@@ -21,6 +21,7 @@ export const api = {
   register:       (data) => request('/register', { method: 'POST', body: JSON.stringify(data) }),
   login:          (data) => request('/login', { method: 'POST', body: JSON.stringify(data) }),
   getEssays:      ()     => request('/essays'),
+  getDashboard:   ()     => request('/essays/dashboard'),
   submitEssay:    (data) => request('/essays', { method: 'POST', body: JSON.stringify(data) }),
   deleteEssay:    (id)   => request(`/essays/${id}`, { method: 'DELETE' }),
   getExercises:   ()     => request('/math/exercises'),

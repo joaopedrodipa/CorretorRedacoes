@@ -32,6 +32,19 @@ export default function Navbar({ user, onLoginClick, onRegisterClick, onLogout, 
           >
             Matemática
           </button>
+
+          <button
+            onClick={() => onPageChange('dashboard')}
+            style={{
+              padding: '3px 12px',
+              borderRadius: '9999px',
+              fontSize: '14px',
+              fontWeight: '500',
+              ...(page === 'dashboard' ? { backgroundColor: 'var(--color-primary-light)', color: 'var(--color-primary-dark)' } : { color: '#6b7280' })
+            }}
+          >
+            Dashboard
+          </button>
         </div>
       )}
 

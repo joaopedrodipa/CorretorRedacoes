@@ -4,6 +4,7 @@ import json
 from groq import Groq
 from dotenv import load_dotenv
 
+
 load_dotenv(dotenv_path="../.env")
 
 _client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -169,3 +170,24 @@ Responda APENAS com JSON válido, sem texto extra:
 }}"""
 
     return _parse_json(_call(prompt))
+
+# Resumo dashboard
+async def gerar_resumo_dashboard(feedbacks_anteriores: str) -> str:
+    prompt = f"""
+    Você é um professor de redação especialista em análise de desempenho.
+    Abaixo estão os feedbacks das últimas redações de um aluno. 
+    Analise esses dados e forneça um resumo conciso contendo:
+     Os erros mais frequentes (padrões de erro).
+     Os pontos fortes que o aluno tem mantido.
+     Três dicas práticas e diretas para melhorar nas próximas redações.
+
+    Feedbacks anteriores:
+    {feedbacks_anteriores}
+    """
+
+    response = _client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama-3.3-70b-versatile"
+    )
+    
+    return response.choices[0].message.content

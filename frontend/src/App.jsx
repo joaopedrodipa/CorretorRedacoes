@@ -8,6 +8,7 @@ import AccountModal from './components/shared/AccountModal'
 import HomePage from './pages/HomePage'
 import EssaysPage from './pages/EssaysPage'
 import MathPage from './pages/MathPage'
+import DashboardPage from './pages/DashboardPage';
 import './index.css'
 
 export default function App() {
@@ -47,6 +48,8 @@ export default function App() {
               submitCalc={submitCalc}
               deleteExercise={deleteExercise}
             />
+          ) : page === 'dashboard' ? ( //Adicionar pagina dashboard
+            <DashboardPage />
           ) : (
             <HomePage
               user={user}

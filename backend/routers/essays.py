@@ -5,7 +5,8 @@ from database import get_session
 from models import Essay, Feedback, User
 from schemas import EssayCreate, EssayOut, FeedbackOut
 from auth import get_current_user
-from groq_ai import correct_redacao, correct_texto, correct_carta
+from groq_ai import correct_redacao, correct_texto, correct_carta, gerar_resumo_dashboard
+
 
 _CORRECTORS = {
     'redacao': correct_redacao,
@@ -37,6 +38,8 @@ def _build_essay_out(essay: Essay, feedback: Feedback | None) -> EssayOut:
         submitted_at=essay.submitted_at.strftime("%Y-%m-%d"),
         feedback=fb,
     )
+
+
 
 
 @router.get("", response_model=list[EssayOut])
@@ -96,3 +99,53 @@ def delete_essay(essay_id: int, current_user: User = Depends(get_current_user), 
         session.delete(feedback)
     session.delete(essay)
     session.commit()
+
+
+@router.get("/dashboard")
+async def get_dashboard_data(current_user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    # Buscar redações do usuário pelo SQLModel ordenadas da mais antiga para a mais nova
+    essays = session.exec(select(Essay).where(Essay.user_id == current_user.id).order_by(Essay.submitted_at.asc())).all()
+    
+    if not essays:
+        return {"mensagem": "Nenhuma redação encontrada ainda para gerar o dashboard."}
+
+    historico_notas = []
+    feedbacks_textos = []
+    
+    # Mapeamento para converter as notas em letras para números para o Gráfico
+    mapa_notas = {"A": 100, "B": 80, "C": 60, "D": 40, "F": 0}
+    
+    for essay in essays:
+        # Buscar o feedback correspondente a essa redação
+        feedback = session.exec(select(Feedback).where(Feedback.essay_id == essay.id)).first()
+        
+        if feedback:
+            nota_numero = mapa_notas.get(feedback.overall_grade, 0)
+            
+            historico_notas.append({
+                "data": essay.submitted_at.strftime("%d/%m/%Y"),
+                "nota": nota_numero,
+                "nota_letra": feedback.overall_grade,
+                "titulo": essay.title
+            })
+            feedbacks_textos.append(feedback.summary)
+
+    #  Limitar os textos 
+    ultimos_feedbacks = " | ".join(feedbacks_textos[-5:])
+    
+    #  Gerar resumo
+    resumo_ia = "Faltam dados suficientes de feedback para gerar análise."
+    if ultimos_feedbacks:
+        resumo_ia = await gerar_resumo_dashboard(ultimos_feedbacks)
+
+    #  Calcular média geral 
+    media_geral = 0
+    if len(historico_notas) > 0:
+        media_geral = sum(r["nota"] for r in historico_notas) / len(historico_notas)
+
+    return {
+        "total_redacoes": len(essays),
+        "media_geral": media_geral,
+        "grafico_evolucao": historico_notas,
+        "resumo_analitico": resumo_ia
+    }
