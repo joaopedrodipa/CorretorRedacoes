@@ -172,7 +172,7 @@ Responda APENAS com JSON válido, sem texto extra:
     return _parse_json(_call(prompt))
 
 # Resumo dashboard
-async def gerar_resumo_dashboard(feedbacks_anteriores: str) -> str:
+def gerar_resumo_dashboard(feedbacks_anteriores: str) -> str:
     prompt = f"""
     Você é um professor de redação especialista em análise de desempenho.
     Abaixo estão os feedbacks das últimas redações de um aluno. 

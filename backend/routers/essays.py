@@ -136,7 +136,7 @@ async def get_dashboard_data(current_user: User = Depends(get_current_user), ses
     #  Gerar resumo
     resumo_ia = "Faltam dados suficientes de feedback para gerar análise."
     if ultimos_feedbacks:
-        resumo_ia = await gerar_resumo_dashboard(ultimos_feedbacks)
+        resumo_ia = gerar_resumo_dashboard(ultimos_feedbacks)
 
     #  Calcular média geral 
     media_geral = 0
