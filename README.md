@@ -32,6 +32,9 @@ O aluno envia um exercício ou uma conta e recebe resolução passo a passo com 
 Exibe gráfico de evolução de notas, média geral e pontos de melhora gerados pela IA com base nas últimas redações corrigidas.
 
 ## Manual do Usuário
+
+📄 [Manual do usuário EducAI](EducAI.pdf)
+
 ### 1. Cadastro e login
 
 Na tela inicial, clique em **Cadastrar** e informe nome, e-mail, senha e a sua série escolar (isso define quais critérios de avaliação a IA vai usar). Já com conta criada, use **Entrar** para fazer login.
