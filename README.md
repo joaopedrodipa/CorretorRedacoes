@@ -29,6 +29,47 @@ O aluno envia um exercício ou uma conta e recebe resolução passo a passo com 
 
 Exibe gráfico de evolução de notas, média geral e pontos de melhora gerados pela IA com base nas últimas redações corrigidas.
 
+## Manual do Usuário
+
+Guia rápido para quem vai usar o EducAI pela primeira vez — sem precisar entender nada de código.
+
+### 1. Cadastro e login
+
+Na tela inicial, clique em **Cadastrar** e informe nome, e-mail, senha e a sua série escolar (isso define quais critérios de avaliação a IA vai usar). Já com conta criada, use **Entrar** para fazer login.
+
+### 2. Corrigindo um texto
+
+1. No menu superior, clique em **Redações**
+2. Escreva ou cole o seu texto no campo central
+3. Escolha o tipo de texto, se quiser mudar o que já vem selecionado pela sua série:
+   - **Redação** — dissertativa, estilo ENEM (Ensino Médio)
+   - **Texto** — narrativo (8º/9º ano)
+   - **Carta** — com saudação, corpo e despedida (1º ao 7º ano)
+4. Clique em **Corrigir** e aguarde a avaliação da IA (alguns segundos)
+5. O resultado aparece ao lado: uma nota geral (A, B, C ou D), a nota detalhada por critério (coesão, coerência, gramática, vocabulário e estrutura) e uma lista de pontos para melhorar
+6. Todas as redações enviadas ficam salvas no seu histórico, na barra lateral
+
+### 3. Resolvendo exercícios de matemática
+
+1. No menu superior, clique em **Matemática**
+2. Escolha o modo:
+   - **Exercício** — para enunciados com contexto (ex: "Um carro percorre 100 km em 2 horas..."). Fica salvo no histórico
+   - **Conta** — para uma expressão direta (ex: "3/4 + 1/2"). Mostra o resultado na hora, sem salvar
+3. Digite o enunciado ou a conta e clique em **Resolver**
+4. A IA mostra a resolução passo a passo, com as fórmulas e resultados já formatados
+
+### 4. Acompanhando sua evolução
+
+Clique em **Dashboard** no menu superior para ver:
+- O gráfico com a evolução das suas notas ao longo do tempo
+- A média geral de todas as redações corrigidas
+- Sua última nota
+- Pontos de melhora, resumidos pela IA com base nas suas últimas correções
+
+### 5. Gerenciando sua conta
+
+Clique em **Conta** (próximo ao seu nome, no canto superior direito) para atualizar seus dados, trocar sua senha ou excluir sua conta. Para sair, use o botão **Sair**.
+
 ## Stack
 
 - **Frontend:** React + Vite + Tailwind CSS v4
