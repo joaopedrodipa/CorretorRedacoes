@@ -2,6 +2,8 @@
 
 Sistema web para apoio à educação básica, com correção automática de redações e resolução de exercícios de matemática geradas por IA.
 
+🔗 **Acesse o site:** [educai.squareweb.app](https://educai.squareweb.app/)
+
 ## Sobre o Projeto
 
 O aluno escreve um texto ou um exercício e recebe feedback instantâneo gerado por inteligência artificial.
@@ -30,9 +32,6 @@ O aluno envia um exercício ou uma conta e recebe resolução passo a passo com 
 Exibe gráfico de evolução de notas, média geral e pontos de melhora gerados pela IA com base nas últimas redações corrigidas.
 
 ## Manual do Usuário
-
-Guia rápido para quem vai usar o EducAI pela primeira vez — sem precisar entender nada de código.
-
 ### 1. Cadastro e login
 
 Na tela inicial, clique em **Cadastrar** e informe nome, e-mail, senha e a sua série escolar (isso define quais critérios de avaliação a IA vai usar). Já com conta criada, use **Entrar** para fazer login.
@@ -91,7 +90,7 @@ Clique em **Conta** (próximo ao seu nome, no canto superior direito) para atual
 
 1. Acesse [console.groq.com](https://console.groq.com) e crie uma conta gratuita
 2. Vá em **API Keys → Create API Key** e copie a chave gerada
-3. Crie o arquivo `.env` na **raiz do repositório** (mesma pasta do README) com o seguinte conteúdo:
+3. Crie o arquivo `.env` na **raiz do repositório** com o seguinte conteúdo:
 
 ```
 GROQ_API_KEY=sua_chave_aqui
@@ -116,8 +115,6 @@ Ativar o ambiente virtual:
 - **Windows (PowerShell):** `.\venv\Scripts\Activate.ps1`
 - **Windows (cmd.exe):** `venv\Scripts\activate.bat`
 - **Mac/Linux:** `source venv/bin/activate`
-
-> No PowerShell, se aparecer erro de política de execução, rode `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` e tente novamente.
 
 ```bash
 pip install -r requirements.txt
